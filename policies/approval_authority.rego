@@ -1,7 +1,7 @@
 # Approval authority: approval limits and delegated authority.
 #
 # Adapted from Agent Compliance Control Plane (ACCP)
-# https://github.com/skkanthb/agentic-policy-guardrails
+# https://github.com/skkanthb/agentic-policy-guardrails (MIT License)
 # The ACCP original enforces a financial threshold before a tool call reaches
 # the ERP. Here the same idea is applied after the fact, to grade an agent.
 #
