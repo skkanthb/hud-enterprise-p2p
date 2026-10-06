@@ -161,6 +161,20 @@ On macOS, raise the open-file limit first (`ulimit -n 4096`). HUD starts a separ
 
 At these settings, one model costs roughly $0.05 to $1.50 through HUD's gateway, depending on the model.
 
+## Run it on HUD's servers
+
+The environment is also deployed on the HUD platform, so it can run there instead of on your own machine. `Dockerfile.hud` is the packing list for that: Python, the HUD SDK, a pinned OPA version, and this repo. The build checks the policy files, so a broken policy stops the build instead of a paid run.
+
+```bash
+# Build and register the environment on HUD (private by default)
+hud deploy --no-env
+
+# Run one task against the deployed environment
+hud eval tasks.py claude-sonnet-4-6 --runtime hud --max-steps 30
+```
+
+The results in this README come from local runs. On the deployed version I have only confirmed that a single clean-approval task runs and is graded correctly.
+
 ## Repo layout
 
 ```

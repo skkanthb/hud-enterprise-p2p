@@ -1,0 +1,7 @@
+[project]
+name = "hud-enterprise-p2p"
+version = "0.1.0"
+description = "Procure-to-pay approval environment on the HUD SDK, graded by OPA/Rego policies."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["hud==0.6.18", "fastmcp==3.2.0"]

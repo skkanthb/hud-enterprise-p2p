@@ -1,0 +1,19 @@
+# How HUD packages this environment when you run `hud deploy`.
+# It is a small Linux box with Python, the HUD SDK, the OPA policy engine and this repo.
+FROM python:3.12-slim
+
+# OPA is the policy engine the grader calls. Pinned so every build grades the same way.
+ARG OPA_VERSION=1.9.0
+ADD --chmod=0755 https://github.com/open-policy-agent/opa/releases/download/v${OPA_VERSION}/opa_linux_amd64_static /usr/local/bin/opa
+ENV OPA_BIN=/usr/local/bin/opa
+
+WORKDIR /app
+COPY pyproject.toml ./
+RUN pip install --no-cache-dir "hud==0.6.18" "fastmcp==3.2.0"
+
+COPY . .
+
+# Fail the build early if OPA or the policies are broken, not during a paid run.
+RUN opa check policies
+
+CMD ["hud", "serve", "env.py", "--host", "0.0.0.0", "--port", "8765"]
